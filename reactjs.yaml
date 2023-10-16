@@ -1,11 +1,11 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: shiny-server
+  name: reactjs
   annotations:
-    description: "Template for deployment of R-Shiny applications.\n For more info see https://github.com/ResearchIT/docker-shiny-server"
+    description: "Template for deployment of ReactJS applications.\n For more info see https://github.com/ResearchIT/oci-reactjs"
     iconClass: "icon-other-unknown"
-    tags: "shiny,r,r-shiny"
+    tags: "reactjs"
     template.openshift.io/bindable: "false"
 objects:
 - apiVersion: v1
@@ -14,9 +14,9 @@ objects:
     name: ${NAME}
   spec:
     ports:
-    - name: shiny-web
-      port: 3838
-      targetPort: 3838
+    - name: reactjs-nginx-web
+      port: 8080
+      targetPort: 8080
     selector:
       name: ${NAME}
 - apiVersion: v1
@@ -80,7 +80,7 @@ objects:
       sourceStrategy:
         from:
           kind: DockerImage
-          name: researchit/shiny-server:latest
+          name: researchit/reactjs:latest
         forcePull: true
     output:
       to:
@@ -111,12 +111,12 @@ parameters:
   - name: NAME
     displayName: Name 
     description: The name assigned to all frontend objects defined in this template. 
-    value: shiny-server 
+    value: reactjs
     required: true 
   - name: SOURCE_REPOSITORY_URL 
     displayName: Source Repository URL 
     description: The URL of the repository with your application source code 
-    value: https://github.com/researchit/shiny-ex.git 
+    value: https://github.com/researchit/reactjs-ex.git 
     required: true 
   - name: SOURCE_REPOSITORY_REF 
     displayName: Source Repository Reference
