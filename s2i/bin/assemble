@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+shopt -s dotglob
+echo "---> Installing application source..."
+mv /tmp/src/* ./
+
+# Fix source directory permissions
+fix-permissions ./
+
+/bin/bash reactjs-build.sh
